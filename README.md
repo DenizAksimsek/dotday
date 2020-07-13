@@ -43,6 +43,7 @@ This is basically useless at this point. There is so much to do.
 
 - [X] Attachments (URI or relative path)
 - [X] Tags
+- [ ] Participants: format `John Doe <jdoe@example.com>`
 - [ ] Colors
   * How will that work in plaintext?
 - [ ] Timezone configuration
