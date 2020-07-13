@@ -33,6 +33,7 @@ function parse(filename, text) {
   const events = body.map(block => parseEvent(baseDate, block))
 
   return {
+    filename,
     title,
     events
   }
@@ -144,6 +145,8 @@ function parseTimeHeader(baseDate, line) {
   const startTime = isAllDay ? undefined : startTimeStr && parseTimeOfDay(baseDate, startTimeStr)
   const endTime = isAllDay ? undefined : endTimeStr && parseTimeOfDay(baseDate, endTimeStr)
 
+  if (isAllDay) endTime.add(1, 'd')
+
   const reminder = reminderStr && parseDuration(reminderStr)
   return {
     isAllDay,
@@ -195,16 +198,74 @@ function dotDayReplacer(obj) {
   return obj
 }
 
+function hash(str) {
+  var hash = 0,
+    i,
+    chr;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
+  }
+  return hash;
+}
+
+function escapeValue(val) {
+  return val
+    .replace(/(,|;|\\)/, '\\$1')
+    .replace(/\n/, '\\n')
+}
+
+function exportIcs(calendarName, parsedFiles) {
+  const output = []
+
+  output.push(
+    `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Deniz Akşimşek//NONSGML DotDay-JS//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:${calendarName}`)
+
+  for (const file of parsedFiles) {
+    let index = 0
+    for (const event of file.events) {
+      output.push(
+        `BEGIN:VEVENT
+UID:${hash(calendarName + file.relativePath + index++)}
+DTSTART${event.isAllDay ? ';VALUE=DATE' : ''}:${event.isAllDay ? event.startTime.format('YYYYMMDD') : event.startTime.format('YYYYMMDDTHHmmss') || ''}
+DTEND${event.isAllDay ? ';VALUE=DATE' : ''}:${event.isAllDay ? event.endTime.format('YYYYMMDD') : event.endTime.format('YYYYMMDDTHHmmss') || ''}
+DTSTAMP:${event.startTime.format('YYYYMMDDTHHmmss') || ''}
+CREATED:${file.created || ''}
+LAST-MODIFIED:${file.lastModified || ''}
+SUMMARY:${escapeValue(event.title)}
+DESCRIPTION:${escapeValue(event.description)}
+LOCATION:${event.location ? event.location[event.location.length - 1] : ''}
+${event.people.map(person => 
+  `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;CN=${escapeValue(person.name || person)}:${person.email || person}\n`)
+}${event.attachments.map(attachment =>
+  `ATTACH:${attachment}\n`)
+}SEQUENCE:0
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT`)
+    }
+  }
+
+  output.push(`END:VCALENDAR`)
+
+  return output.map(str => str.replace(/\n/, '\r\n')).join('\r\n')
+}
+
 function main() {
   const dir = process.argv[2] || './samples'
   const filenames = fs.readdirSync(dir)
   const days = filenames
     .filter(filename => fs.lstatSync(path.join(dir, filename)).isFile())
     .map(filename => parse(
-    filename,
-    fs.readFileSync(path.join(dir, filename)).toString()
-  ))
-  console.log(JSON.stringify(days, null, 2))
+      filename,
+      fs.readFileSync(path.join(dir, filename)).toString()
+    ))
+  console.log(exportIcs(dir, days))
 }
 
 main()

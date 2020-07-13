@@ -25,8 +25,7 @@ i hate this course
 so much
 ```
 
-dotday-js/ includes a reference implementation that reads a directory of
-.day files and outputs JSON data.
+dotday-js/ includes a Node.js based reference implementation that reads a directory of .day files and outputs iCalendar (.ics) data.
 
 `format.textile` includes an informal description.
 
@@ -34,7 +33,7 @@ dotday-js/ includes a reference implementation that reads a directory of
 
 This is basically useless at this point. There is so much to do.
 
-- [ ] Compile to iCalendar format
+- [X] Compile to iCalendar format
 - [ ] Timezone handling
 - [ ] Syntax highlighting
 - [ ] Formal description
