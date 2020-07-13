@@ -3,14 +3,80 @@
 
 <header>
 <h1>*.day</h1>
-<p> a text-based calendar
+<p> A text-based calendar.
 </header>
 
-<dl>
+<dl class="about-links">
 <dt> GitHub
 <dd> <a href="https://github.com/DenizAksimsek/dotday/">
   https://github.com/DenizAksimsek/dotday/
 </a>
+<dt> Created by
+<dd> <a href="https://www.denizaksimsek.com">Deniz Akşimşek</a>
 </dl>
 
-<p>COMING SOON
+<p> A human readable calendar format.
+<p> Compiles to iCalendar (.ics) files.
+<p> One file = one day.
+<p> Designed for ease of parsing, both by humans and by computers.
+<p> The GitHub repo contains an informal description and a reference information in JavaScript that outputs iCalendar data.
+
+<h2> Example </h2>
+
+<pre><code><small>; 2020-07-13.day -- the filename is the date</small>
+<small>; comment</small>
+<small>; The title is optional.</small>
+<b>13 July (Monday)
+================</b>
+
+<small>; Events are separated by blank lines</small>
+<small>; !1h -> Your calendar app will remind you 1 hour before the event</small>
+10:00 -- 11.50 !1h
+MATH 102
+<b>@</b> DB18
+i hate this course
+so much
+<b>~</b> Mike Oxmall &lt;mike.oxmall@example.edu>
+</code></pre>
+
+<style>
+body {
+  max-width: 50ch;
+  margin: auto;
+  padding: 2em;
+
+  font-family: sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 7em;
+}
+
+header {
+  text-align: center;
+}
+
+.about-links {
+  background-color: lightgray;
+  color: #111;
+  padding: 1em;
+}
+
+dt {
+  font-weight: bold;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+code small {
+  font-size: 1em;
+  color: gray;
+}
+
+code b {
+  color: blue;
+}
+</style>
