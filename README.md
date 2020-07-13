@@ -1,4 +1,4 @@
-# *.DAY -- A human-readable calendar format #
+# *.DAY &mdash; A human-readable calendar format #
 
 One file == one day.
 
