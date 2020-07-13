@@ -2,6 +2,7 @@
 <meta name=viewport content="initial-scale=1">
 
 <header>
+<p class="wip"> <strong>WORK IN PROGRESS</strong>
 <h1>*.day</h1>
 <p> A text-based calendar.
 </header>
@@ -19,7 +20,7 @@
 <p> Compiles to iCalendar (.ics) files.
 <p> One file = one day.
 <p> Designed for ease of parsing, both by humans and by computers.
-<p> The GitHub repo contains an informal description and a reference information in JavaScript that outputs iCalendar data.
+<p> The GitHub repo contains an informal description and a reference implementation.
 
 <h2> Example </h2>
 
@@ -39,6 +40,16 @@ so much
 <b>~</b> Mike Oxmall &lt;mike.oxmall@example.edu>
 </code></pre>
 
+<h2>FAQ (Fairly-likely-to-be-Asked Questions)</h2>
+<blockquote>
+"Why did you make this?"
+<footer>&mdash; <cite>Someone, eventually</cite></footer>
+</blockquote>
+
+<p> Because I couldn't believe nobody else had made it. I wanted a text based calendar that I could put on my desktop and phone, but I also wanted notifications on my phone (text files are too polite to bother you like that). In the end, .day is <a href="https://http://todotxt.org/">todo.txt</a> but for calendaring.
+
+<!-- TODO: move this to a separate file -->
+<!-- Actually TODO: write some docs -->
 <style>
 body {
   max-width: 50ch;
@@ -51,10 +62,41 @@ body {
 
 h1 {
   font-size: 7em;
+  font-weight: 100;
+}
+
+h2 {
+	font-size: 1em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+h3 {
+	font-size: 1em;
 }
 
 header {
   text-align: center;
+}
+
+.wip {
+	--stripes: repeating-linear-gradient(
+	  45deg,
+	  yellow,
+	  yellow 10px,
+	  black 10px,
+	  black 20px
+	);
+}
+
+.wip::before, .wip::after {
+	display: block;
+	content: '';
+	height: 1em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 100%;
+	background: var(--stripes);
 }
 
 .about-links {
@@ -65,6 +107,14 @@ header {
 
 dt {
   font-weight: bold;
+}
+
+blockquote {
+	color: #666;
+}
+
+blockquote > footer {
+	text-align: left;
 }
 
 pre {
