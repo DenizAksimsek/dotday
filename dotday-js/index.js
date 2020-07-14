@@ -218,7 +218,9 @@ function exportIcs(calendarName, parsedFiles) {
 VERSION:2.0
 PRODID:-//Deniz Akşimşek//NONSGML DotDay-JS//EN
 CALSCALE:GREGORIAN
-X-WR-CALNAME:${calendarName}`)
+X-WR-CALNAME:${calendarName}
+X-PUBLISHED-TTL:PT30m
+REFRESH-INTERVAL;VALUE=DURATION:P30m`)
 
   for (const file of parsedFiles) {
     let index = 0
