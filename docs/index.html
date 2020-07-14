@@ -4,14 +4,14 @@
 <header>
 <p class="wip"> <strong>WORK IN PROGRESS</strong>
 <h1>*.day</h1>
-<p> A text-based calendar.
+<p> A text-based calendar, inspired by <a href="https://todotxt.org">todo.txt</a>.
 </header>
 
 <dl class="about-links">
-<dt> GitHub
+<dt> Repository
 <dd> <a href="https://github.com/DenizAksimsek/dotday/">
   https://github.com/DenizAksimsek/dotday/
-</a>
+</a> &mdash; give it a star!
 <dt> Created by
 <dd> <a href="https://www.denizaksimsek.com">Deniz Akşimşek</a>
 </dl>
@@ -24,15 +24,18 @@
 
 <h2> Example </h2>
 
-<pre><code><small>; 2020-07-13.day -- the filename is the date</small>
-<small>; comment</small>
-<small>; The title is optional.</small>
-<b>13 July (Monday)
-================</b>
+<pre><code><span class="comment">; 2020-07-13.day</span>
+<span class="comment">; comment</span>
+<span class="comment">; The title is the date.</span>
+<b>= 2020-07-14 =</b>
 
-<small>; Events are separated by blank lines</small>
-<small>; !1h -> Your calendar app will remind you 1 hour before the event</small>
-10:00 -- 11.50 !1h
+<span class="comment">; All day event</span>
+<b>--</b>
+International Nothing Day
+
+<span class="comment">; Events are separated by blank lines</span>
+<span class="comment">; !1h -> Your calendar app will remind you 1 hour before the event</span>
+<b>10:00 -- 11.50 !1h</b>
 MATH 102
 <b>@</b> DB18
 i hate this course
@@ -46,7 +49,7 @@ so much
 <footer>&mdash; <cite>Someone, eventually</cite></footer>
 </blockquote>
 
-<p> Because I couldn't believe nobody else had made it. I wanted a text based calendar that I could put on my desktop and phone, but I also wanted notifications on my phone (text files are too polite to bother you like that). In the end, .day is <a href="https://http://todotxt.org/">todo.txt</a> but for calendaring.
+<p> Because I couldn't believe nobody else had made it. I wanted a text based calendar that I could put on my desktop and phone, but I also wanted notifications on my phone (text files are too polite to bother you like that).
 
 <!-- TODO: move this to a separate file -->
 <!-- Actually TODO: write some docs -->
@@ -80,6 +83,9 @@ header {
 }
 
 .wip {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	gap: 2ch;
 	--stripes: repeating-linear-gradient(
 	  45deg,
 	  yellow,
@@ -90,19 +96,18 @@ header {
 }
 
 .wip::before, .wip::after {
-	display: block;
 	content: '';
 	height: 1em;
-	margin-top: 1em;
-	margin-bottom: 1em;
 	width: 100%;
 	background: var(--stripes);
 }
 
 .about-links {
-  background-color: lightgray;
+  background-color: #eee;
   color: #111;
+  border: 1px solid #aaa;
   padding: 1em;
+  border-radius: .5em;
 }
 
 dt {
@@ -119,11 +124,15 @@ blockquote > footer {
 
 pre {
   white-space: pre-wrap;
+  background: #eee;
+  border: 1px solid #aaa;
+  padding: 1em;
+  border-radius: .5em;
 }
 
-code small {
+code .comment {
   font-size: 1em;
-  color: gray;
+  color: green;
 }
 
 code b {
