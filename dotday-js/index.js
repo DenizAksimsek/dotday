@@ -26,10 +26,10 @@ const //
   moment = require('moment')
 
 function parse(filename, text) {
-  const baseDate = moment(filename.split('.')[0] + "T00:00")
   const lines = text.split('\n').filter(line => !isComment(line))
   const blocks = parseBlocks(lines)
   const {title, body} = separateTitle(blocks)
+  const baseDate = moment(title).set({ hours: 0, minutes: 0 })
   const events = body.map(block => parseEvent(baseDate, block))
 
   return {
@@ -142,8 +142,8 @@ function parseTimeHeader(baseDate, line) {
 
   const isAllDay = startTimeStr.trim() === ''
 
-  const startTime = isAllDay ? undefined : startTimeStr && parseTimeOfDay(baseDate, startTimeStr)
-  const endTime = isAllDay ? undefined : endTimeStr && parseTimeOfDay(baseDate, endTimeStr)
+  const startTime = isAllDay ? moment(baseDate) : startTimeStr && parseTimeOfDay(baseDate, startTimeStr)
+  const endTime = isAllDay ? moment(baseDate) : endTimeStr && parseTimeOfDay(baseDate, endTimeStr)
 
   if (isAllDay) endTime.add(1, 'd')
 
@@ -171,24 +171,18 @@ function parseDuration(str) {
 }
 
 /**
-The title block is a single line of text followed by a line of at least 3 equals
-signs and optionally some whitespace.
+The title block is a single line, starting and ending with double equals signs;
+its contents are the date.
 
 For example:
     
-    CONFERENCE DAY 1
-    ================
+    == 2020-07-14 Monday ==
 
-The line immediately after the equals signs is reserved for future use.
  */
 function separateTitle(blocks) {
-  if (/^={3,}\s*$/.test(blocks[0][1])) {
-    return {
-      title: blocks[0][0],
-      body: blocks.slice(1)
-    }
-  } else return {
-      body: blocks
+  return {
+    title: /^= (?<title>.*) =/.exec(blocks[0][0]).groups.title,
+    body: blocks.slice(1)
   }
 }
 
@@ -241,19 +235,28 @@ SUMMARY:${escapeValue(event.title)}
 DESCRIPTION:${escapeValue(event.description)}
 LOCATION:${event.location ? event.location[event.location.length - 1] : ''}
 ${event.people.map(person => 
-  `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;CN=${escapeValue(person.name || person)}:${person.email || person}\n`)
+  `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT:${person}\n`)
 }${event.attachments.map(attachment =>
   `ATTACH:${attachment}\n`)
 }SEQUENCE:0
 STATUS:CONFIRMED
-TRANSP:OPAQUE
-END:VEVENT`)
+TRANSP:OPAQUE`)
+
+      if ('reminder' in event) {
+        output.push(`BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:${event.reminder}
+END:VALARM`)
+      }
+      output.push(`END:VEVENT`)
     }
   }
 
-  output.push(`END:VCALENDAR`)
+  output.push(`END:VCALENDAR\r\n`)
 
-  return output.map(str => str.replace(/\n/, '\r\n')).join('\r\n')
+  return output.join('\n').replace(/\r\n/gm, "\n")
+                 .replace(/\n/gm,   "\r\n")
 }
 
 function main() {
@@ -265,7 +268,7 @@ function main() {
       filename,
       fs.readFileSync(path.join(dir, filename)).toString()
     ))
-  console.log(exportIcs(dir, days))
+  fs.writeFileSync(process.argv[3], exportIcs(dir, days))
 }
 
 main()
