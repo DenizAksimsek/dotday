@@ -233,7 +233,7 @@ CREATED:${file.created || ''}
 LAST-MODIFIED:${file.lastModified || ''}
 SUMMARY:${escapeValue(event.title)}
 DESCRIPTION:${escapeValue(event.description)}
-LOCATION:${event.location ? event.location[event.location.length - 1] : ''}
+LOCATION:${event.locations ? event.locations[event.locations.length - 1] : ''}
 ${event.people.map(person => 
   `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT:${person}\n`)
 }${event.attachments.map(attachment =>
