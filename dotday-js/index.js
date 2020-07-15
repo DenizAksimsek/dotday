@@ -229,7 +229,7 @@ REFRESH-INTERVAL;VALUE=DURATION:P30m`)
     for (const event of file.events) {
       output.push(
         `BEGIN:VEVENT
-UID:${hash(calendarName + file.relativePath + index++)}
+UID:${hash(calendarName + file.filename + index++)}
 DTSTART${event.isAllDay ? ';VALUE=DATE' : ''}:${event.isAllDay ? event.startTime.format('YYYYMMDD') : event.startTime.format('YYYYMMDDTHHmmss') || ''}
 DTEND${event.isAllDay ? ';VALUE=DATE' : ''}:${event.isAllDay ? event.endTime.format('YYYYMMDD') : event.endTime.format('YYYYMMDDTHHmmss') || ''}
 DTSTAMP:${event.startTime.format('YYYYMMDDTHHmmss') || ''}
