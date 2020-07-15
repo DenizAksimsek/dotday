@@ -268,7 +268,7 @@ function main() {
   const filenames = fs.readdirSync(dir)
   const days = filenames
     .filter(filename => fs.lstatSync(path.join(dir, filename)).isFile() 
-      && path.extname(filename) === 'day')
+      && path.extname(filename) === '.day')
     .map(filename => parse(
       filename,
       fs.readFileSync(path.join(dir, filename)).toString()

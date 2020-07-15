@@ -1,6 +1,6 @@
 {
   "name": "dotday",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "iCalendar compiler for a text-based calendar.",
   "main": "index.js",
   "bin": {
