@@ -1,0 +1,66 @@
+
+body {
+  max-width: 50ch;
+  margin: auto;
+  padding: 2em;
+
+  font-family: sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 5em;
+  font-weight: 100;
+}
+
+h2 {
+	font-size: 1em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+h3 {
+	font-size: 1em;
+}
+
+header {
+  text-align: center;
+}
+
+dt {
+  font-weight: bold;
+}
+
+blockquote {
+	color: #666;
+}
+
+blockquote > footer {
+	text-align: right;
+}
+
+pre {
+  white-space: pre-wrap;
+  background: #eee;
+  border: 1px solid #aaa;
+  padding: 1em;
+  border-radius: .5em;
+}
+
+code .comment {
+  font-size: 1em;
+  color: green;
+}
+
+code b {
+  color: blue;
+}
+
+.about-links {
+  background-color: #eee;
+  color: #111;
+  border: 1px solid #aaa;
+  padding: 1em;
+  border-radius: .5em;
+}
+

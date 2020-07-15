@@ -1,9 +1,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
+<link rel=stylesheet href=styles.css>
 
 <title>*.day &mdash; a text based calendar</title>
 
 <header>
+<nav> <a href=/><strong>home</strong></a> |
+  <a href=/netlify/>dotday-netlify</a>
+</nav>
 <p class="wip"> <strong>WORK IN PROGRESS</strong>
 <h1>*.day</h1>
 <p> A text-based calendar, inspired by <a href="https://todotxt.org">todo.txt</a>.
@@ -65,34 +69,9 @@ HIST 102
 <!-- TODO: move this to a separate file -->
 <!-- Actually TODO: write some docs -->
 <style>
-body {
-  max-width: 50ch;
-  margin: auto;
-  padding: 2em;
-
-  font-family: sans-serif;
-  color: #333;
-}
-
 h1 {
   font-size: 7em;
-  font-weight: 100;
 }
-
-h2 {
-	font-size: 1em;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-
-h3 {
-	font-size: 1em;
-}
-
-header {
-  text-align: center;
-}
-
 .wip {
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
@@ -111,42 +90,5 @@ header {
 	height: 1em;
 	width: 100%;
 	background: var(--stripes);
-}
-
-.about-links {
-  background-color: #eee;
-  color: #111;
-  border: 1px solid #aaa;
-  padding: 1em;
-  border-radius: .5em;
-}
-
-dt {
-  font-weight: bold;
-}
-
-blockquote {
-	color: #666;
-}
-
-blockquote > footer {
-	text-align: right;
-}
-
-pre {
-  white-space: pre-wrap;
-  background: #eee;
-  border: 1px solid #aaa;
-  padding: 1em;
-  border-radius: .5em;
-}
-
-code .comment {
-  font-size: 1em;
-  color: green;
-}
-
-code b {
-  color: blue;
 }
 </style>
