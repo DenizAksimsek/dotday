@@ -267,7 +267,8 @@ function main() {
   const dir = process.argv[2] || './samples'
   const filenames = fs.readdirSync(dir)
   const days = filenames
-    .filter(filename => fs.lstatSync(path.join(dir, filename)).isFile())
+    .filter(filename => fs.lstatSync(path.join(dir, filename)).isFile() 
+      && path.extname(filename) === 'day')
     .map(filename => parse(
       filename,
       fs.readFileSync(path.join(dir, filename)).toString()
