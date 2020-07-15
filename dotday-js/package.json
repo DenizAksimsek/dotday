@@ -1,7 +1,7 @@
 {
   "name": "dotday",
   "version": "1.0.0",
-  "description": "",
+  "description": "iCalendar compiler for a text-based calendar.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,14 @@
   "license": "MIT",
   "dependencies": {
     "moment": "^2.27.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DenizAksimsek/dotday.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DenizAksimsek/dotday/issues"
+  },
+  "homepage": "https://github.com/DenizAksimsek/dotday#readme"
 }
