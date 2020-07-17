@@ -43,6 +43,11 @@ This is basically useless at this point. There is so much to do.
 - [X] Tags
 - [ ] Participants: format `John Doe <jdoe@example.com>`
 - [ ] Recurring events
+- [ ] Timezone specification
+
+### Features under consideration ###
+
+- [ ] Format versioning
 - [ ] Colors
   * How will that work in plaintext?
 - [ ] Timezone configuration
